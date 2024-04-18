@@ -9,7 +9,7 @@ public class color : MonoBehaviour
     void Start()
     {
         render = GetComponent<SpriteRenderer>();
-        InvokeRepeating("colo", 0, 2);
+        InvokeRepeating("colo", 0, 2.2f);
     }
 
     // Update is called once per frame
