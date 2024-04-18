@@ -45,7 +45,7 @@ public class controlplayer : MonoBehaviour
             transform.localScale += new Vector3(1, 0, 0) * 2 * Time.deltaTime;
             if (transform.localScale.x > 6)
             {
-                transform.localScale = new Vector3(6, 1, 1);
+                transform.localScale = new Vector3(6.1f, 1, 1);
             }
            
         }
