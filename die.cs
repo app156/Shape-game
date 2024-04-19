@@ -11,12 +11,14 @@ public class die : MonoBehaviour
 {
 
     controlplayer control;
-    [SerializeField] GameObject bottomretry;
+    
     [SerializeField] CinemachineVirtualCamera cine;
     [SerializeField] ppvignee ppcontr;
     [SerializeField] AudioSource stabvoice;
-    [SerializeField] int stageidex;
-    [SerializeField] GameObject UI;
+
+   
+    
+    [SerializeField] public bool Die = false;
     // Start is called before the first frame update
 
 
@@ -25,7 +27,7 @@ public class die : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-        control = GetComponent<controlplayer>();
+        control = UIManger.Instance.playercontrol; 
         
 
         
@@ -34,30 +36,30 @@ public class die : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "enemy")
+        if (other.tag == "enemy" && !UIManger.Instance.playerWin)
         {
             stabvoice.Play();
-            UI.SetActive(false);
+           
             Invoke("VVOICE", 0.1f);
             Dead();
             Invoke("Stopcam", 0.2f);
             ppcontr.enabled = true;
-            
+            Die = true;
+
+
         }
-        if (other.name == "down")
+        if (other.name == "down" && !UIManger.Instance.playerWin)
         {
             Dead();
             Stopcam();
             ppcontr.enabled = true;
+            Die = true;
         }
     }
 
 
 
-    public void retry()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(stageidex);
-    }
+   
     void Stopcam()
     {
         cine.enabled = false;
@@ -69,10 +71,7 @@ public class die : MonoBehaviour
 
     }
 
-    void bottomlate()
-    {
-        bottomretry.SetActive(true);
-    }
+   
     void VVOICE()
     { stabvoice.enabled = false; }
 }
