@@ -7,31 +7,33 @@ public class nextstage : MonoBehaviour
 {
     
     nexteffect nexteffect;
-    [SerializeField]private int nextstageserislcount;
-    [SerializeField] private GameObject UI;
+   
+    [SerializeField] controlplayer playercontrol;
     // Start is called before the first frame update
     void Start()
     {
         nexteffect=GetComponent<nexteffect>();
+        playercontrol = UIManger.Instance.playercontrol;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player"&& !UIManger.Instance.playerdie.Die)
         {
-            UI.SetActive(false);
+
+            UIManger.Instance.playerWin = true;
+
+           
+            
+            
+            playercontrol.enabled = false;
             nexteffect.enabled = true;
+
 
         }
 
     }
-     public void loadNEWSTAGE()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(nextstageserislcount);
-    }
+    
 }
