@@ -7,8 +7,8 @@ using UnityEngine;
 public class controlplayer : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody2D playerrigidbody;
-    private controlplayer control;
+    [SerializeField] private Rigidbody2D playerrigidbody;
+    
     private bool forword=false;
     private bool back = false;
     private bool zoominc = false;
@@ -17,48 +17,53 @@ public class controlplayer : MonoBehaviour
 
     void Start()
     {
-        playerrigidbody = GetComponent<Rigidbody2D>();
-        control = GetComponent<controlplayer>();
+       
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        playerrigidbody = UIManger.Instance.playerRig;
 
-        if (Input.GetKey(KeyCode.D) || forword)
+        if (UIManger.Instance.currentsceneindex!=0)
         {
-            playerrigidbody.AddTorque(-15 * Time.deltaTime, ForceMode2D.Impulse);
-           
-
-
-        }
-        if (Input.GetKey(KeyCode.A)||back)
-        {
-            playerrigidbody.AddTorque(15 * Time.deltaTime, ForceMode2D.Impulse);
-
-         
-        }
-        if (Input.GetKey(KeyCode.W) ||   zoomoutc)
-        {
-           
-            transform.localScale += new Vector3(1, 0, 0) * 2 * Time.deltaTime;
-            if (transform.localScale.x > 6)
+            if (Input.GetKey(KeyCode.D) || forword)
             {
-                transform.localScale = new Vector3(6f, 1, 1);
-            }
-           
-        }
+                playerrigidbody.AddTorque(-15 * Time.deltaTime, ForceMode2D.Impulse);
 
-        if (Input.GetKey(KeyCode.S)|| zoominc)
-        {
-        
-            transform.localScale += new Vector3(-1, 0, 0) * 2 * Time.deltaTime;
-            if (transform.localScale.x < 0.1)
-            {
-                transform.localScale = new Vector3(0.1f, 1, 1);
+
+
             }
-            
+            if (Input.GetKey(KeyCode.A) || back)
+            {
+                playerrigidbody.AddTorque(15 * Time.deltaTime, ForceMode2D.Impulse);
+
+
+            }
+            if (Input.GetKey(KeyCode.W) || zoomoutc)
+            {
+
+                UIManger.Instance.playerdie.transform.localScale += new Vector3(1, 0, 0) * 2 * Time.deltaTime;
+                if (UIManger.Instance.playerdie.transform.localScale.x > 6)
+                {
+                    UIManger.Instance.playerdie.transform.localScale = new Vector3(6f, 1, 1);
+                }
+
+            }
+
+            if (Input.GetKey(KeyCode.S) || zoominc)
+            {
+
+                UIManger.Instance.playerdie.transform.localScale += new Vector3(-1, 0, 0) * 2 * Time.deltaTime;
+
+                if (UIManger.Instance.playerdie.transform.localScale.x < 0.1)
+                {
+                    UIManger.Instance.playerdie.transform.localScale = new Vector3(0.1f, 1, 1);
+                }
+
+            }
         }
 
     }
